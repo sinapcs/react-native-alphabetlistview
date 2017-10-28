@@ -1,7 +1,9 @@
 'use strict';
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
 import ReactNative, {
   StyleSheet,
   View,
@@ -56,11 +58,11 @@ export default class SectionList extends Component {
     //})
     const targetY = ev.pageY;
     const { y, width, height } = this.measure;
-    const index = (Math.floor(ev.locationY / height));
-    if (index >= this.props.sections.length) {
+    if(!y || targetY < y){
       return;
     }
-
+    let index = Math.floor((targetY - y) / height);
+    index = Math.min(index, this.props.sections.length - 1);
     if (this.lastSelectedIndex !== index && this.props.data[this.props.sections[index]].length) {
       this.lastSelectedIndex = index;
       this.onSectionSelect(this.props.sections[index], true);
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'transparent',
     alignItems:'flex-end',
-    justifyContent:'flex-start',
+    justifyContent:'center',
     right: 5,
     top: 0,
     bottom: 0
