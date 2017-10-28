@@ -60,6 +60,11 @@ export default class SelectableSectionsListView extends Component {
         this.containerHeight = h;
       });
     }, 0);
+
+    requestAnimationFrame(() => {
+      // HACK TO RELOAD DATA
+      this.refs.listview.scrollTo({x: 1, y: 0, animated: false})
+    });
   }
 
   componentWillReceiveProps(nextProps) {
